@@ -9,7 +9,6 @@ void clear() {
     system("cls");
 
 #else
-
 #endif
 }
 int main(void) {
