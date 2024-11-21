@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define CASE 9
 
 void initialiserPlateau(char plateau[CASE][CASE]) {
+    system("cls");
     int i=0;
     while (i<=CASE){
         int j=0;
@@ -17,7 +19,7 @@ void initialiserPlateau(char plateau[CASE][CASE]) {
 
     for (int i = 0; i < 9; i++) {
         printf("  +---+---+---+---+---+---+---+---+---+\n");
-        printf("%d ", i + 1); // Numéro des lignes
+        printf("%d ", i + 1);
         for (int j = 0; j < 9; j++) {
             printf("| %c ", plateau[i][j]);
         }

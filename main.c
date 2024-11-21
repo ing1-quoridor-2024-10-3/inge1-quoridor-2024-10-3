@@ -35,7 +35,7 @@ int main(void) {
             if (choixMenu<0 || choixMenu>4)
                 printf("Erreur\n");
         }while(choixMenu<0 || choixMenu>4);
-
+        int a = 550;
         switch (choixMenu) {
             case 0: return 0;
             case 1: initialiserPlateau(plateau);
@@ -46,6 +46,9 @@ int main(void) {
             break;
             case 4:
                 break;
+            case 5:
+                break;
+
         }
     }
 }
