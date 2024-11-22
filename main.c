@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include "plateau.h"
 
-// test
-
 void clear() {
 #ifdef _WIN32
     system("cls");
