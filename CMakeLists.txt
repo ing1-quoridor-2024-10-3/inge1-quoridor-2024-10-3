@@ -6,4 +6,5 @@ set(CMAKE_C_STANDARD 11)
 add_executable(inge1_quoridor_2024_10_3
     main.c
         menu.c
-        plateau.c)
+        plateau.c
+        affichageconsole.c)
