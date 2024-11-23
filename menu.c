@@ -1,22 +1,15 @@
+//
+// Created by znaor on 18/11/2024.
+//
 #define CONSOLE_WIDTH 120
 #include <stdio.h>
 #include <stdlib.h>
-
-
-
 int NouvellePartie() {
     system("cls");
-
-
 }
-
-
 int ReprendrePartieSauv() {
     system("cls");
 }
-
-
-
     void aide(){
         system("cls");
         printf("===============================================================================\n");
@@ -69,7 +62,6 @@ int ReprendrePartieSauv() {
         printf("===============================================================================\n");
         printf("| Appuyez sur 0 pour revenir au menu principal                                |\n");
         printf("===============================================================================\n");
-
         int retourMenu;
         do {
             printf("\nAppuyez sur 0 pour revenir au menu principal : ");
@@ -77,4 +69,3 @@ int ReprendrePartieSauv() {
         } while (retourMenu != 0);
         system("cls");
     }
-
