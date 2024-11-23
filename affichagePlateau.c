@@ -6,3 +6,4 @@
 
 int NouvellePartie() {
     system("cls");
+float
