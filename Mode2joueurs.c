@@ -5,130 +5,125 @@
 #include <stdbool.h>
 #define CASE 9
 
-void gotoligcol( int lig, int col )
-{
+void gotoligcol(int lig, int col) {
     // ressources
     COORD mycoord;
     mycoord.X = col;
     mycoord.Y = lig;
-    SetConsoleCursorPosition( GetStdHandle( STD_OUTPUT_HANDLE ), mycoord );
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), mycoord);
 }
 
-void Mode2joueurs(char plateau[CASE][CASE])
-{
-    printf("Nouvelle partie demarree ! \n");
-    printf("Nom du premier joueur :\n");
-    char prenomUn[50]; scanf("%49s", prenomUn);
-    printf("Nom du deuxieme joueur :\n");
-    char prenomDeux[50]; scanf("%49s", prenomDeux);
+void afficherInfoJoueur(int ligneBase, char *nom, int score, char pion, int nbBarriere) {
+    gotoligcol(ligneBase, 60); // Positionner à droite du plateau
+    printf("Nom: %s", nom);
+    gotoligcol(ligneBase + 1, 60);
+    printf("Score: %d", score);
+    gotoligcol(ligneBase + 2, 60);
+    printf("Pion: %c", pion);
+    gotoligcol(ligneBase + 3, 60);
+    printf("Barrieres: %d", nbBarriere);
+}
 
-    const char jetonUn = 'J';
-    const char jetonDeux = 'Z';
+void Mode2joueurs() {
+    char plateau[CASE][CASE];
+    initialiserPlateau(plateau);
 
-    int barriereUn = 10;
-    int barriereDeux = 10;
+    // Configuration des joueurs
+    printf("Nouvelle partie demarree !\n");
+    printf("Nom du premier joueur : ");
+    char prenomUn[50];
+    scanf("%49s", prenomUn);
+    printf("Nom du deuxieme joueur : ");
+    char prenomDeux[50];
+    scanf("%49s", prenomDeux);
 
-    char barriere = '@';
+    // Choisir les pions
+    char jetonUn, jetonDeux;
+    do {
+        printf("Joueur 1 (%s), choisis ton pion : ", prenomUn);
+        scanf(" %c", &jetonUn); // Le " " avant %c est important pour ignorer le '\n' restant dans le buffer
+        printf("Joueur 2 (%s), choisis ton pion : ", prenomDeux);
+        scanf(" %c", &jetonDeux);
 
-    bool partieEnCours = true;
-    bool joueurUnFlag = true;
+        if (jetonUn == jetonDeux) {
+            printf("Les deux joueurs doivent avoir des pions différents !\n");
+        }
+    } while (jetonUn == jetonDeux); // Assurez-vous que les pions sont différents
 
-    int x1 = 8;
-    int y1 = 3;
-    int x2= 8;
-    int y2= 4;
-    plateau[x1][y1]=jetonUn;
-    plateau[x2][y2]=jetonDeux;
+    int barriereUn = 10, barriereDeux = 10;
+    int scoreUn = 0, scoreDeux = 0;
+    bool partieEnCours = true, joueurUnFlag = true;
 
-    afficherPlateau(plateau);
+    int x1 = 0, y1 = 3; // Position initiale du joueur 1
+    int x2 = 8, y2 = 4; // Position initiale du joueur 2
 
-    while (partieEnCours)
-    {
-        if (joueurUnFlag)
-        {
-            printf("A toi de jouer %s\n", prenomUn);
-            printf("\n1) Deplacer son pion.\n2) Poser une barriere\n");
-            int action;
-            scanf(" %d", &action);
-            getchar();
-            if (action == 1)
-            {
-                printf("\nQuelle action voulez vous faire ?\n1) Avancer\n2) Aller a gauche\n3) Aller a droite\n4)Reculer\n");
-                int deplacement;
-                scanf(" %d", &deplacement);
-                getchar();
-                if (deplacement == 1) {if(x1>0){plateau[x1][y1]=' ';x1--;plateau[x1][y1]=jetonUn;}}
-                else if (deplacement == 2) {if(y1>0){plateau[x1][y1]=' ';y1--;plateau[x1][y1]=jetonUn;}}
-                else if (deplacement == 3) {if(y1<8){plateau[x1][y1]=' ';y1++;plateau[x1][y1]=jetonUn;}}
-                else if (deplacement == 4) {if(x1<8){plateau[x1][y1]=' ';x1++;plateau[x1][y1]=jetonUn;}}
+    plateau[x1][y1] = jetonUn;
+    plateau[x2][y2] = jetonDeux;
 
-                afficherPlateau(plateau);
+    while (partieEnCours) {
+        system("cls"); // Nettoyer l'écran
 
-            }
-            else if (action == 2) {
-                printf("\nEntre quelles case voulez vous poser une barriere ? (lettre/chiffre)\n");
-                char case1[3];
-                char case2[3];
-                printf("\nPremiere case :\n");
-                scanf("%2s", case1);
-                printf("\nDeuxieme case :\n");
-                scanf("%2s", case2);
-                getchar();
+        // Afficher le plateau
+        afficherPlateau(plateau);
 
-                int val1 = case1[1] - '0';
-                int val2 = case2[1] - '0';
-                int val3 = case1[0] - 'A' + 1;
-                int val4 = case2[0] - 'A' + 1;
+        // Afficher les informations des joueurs
+        afficherInfoJoueur(5, prenomUn, scoreUn, jetonUn, barriereUn);
+        afficherInfoJoueur(12, prenomDeux, scoreDeux, jetonDeux, barriereDeux);
 
-                int ligne; int colonne;
-
-                if (val1==val2)
-                    {
-                    ligne = val1 * 2 + 1;
-                    colonne = (val3 > val4 ? val4 : val3) * 4 + 2;
-                    }
-                else if (val3==val4)
-                    {
-                    ligne = (val1 > val2 ? val2 : val1) * 2 + 2;
-                    colonne = val3 * 4;
-                    }
-                else {printf("Erreur!\nLes deux cases doivent être adjacente\n");return;}
-
-                printf("Ligne : %d Colonne: %d\n", ligne, colonne);
-                afficherPlateau(plateau);
-                gotoligcol(ligne, colonne);
-                printf("%c", barriere);
-
-                gotoligcol(100, 0);
-
-            }
-            else {partieEnCours = false;}
-            joueurUnFlag = false;
+        // Afficher les instructions sous le plateau
+        gotoligcol(6 + CASE * 2 + 2, 5);
+        if (joueurUnFlag) {
+            printf("A toi de jouer, %s !\n", prenomUn);
+        } else {
+            printf("A toi de jouer, %s !\n", prenomDeux);
         }
 
-        else
-        {
-            printf("A toi de jouer %s", prenomDeux);
-            printf("\n\nQuelle action voulez vous faire ?\n1) Avancer\n2) Aller a gauche\n3) Aller a droite\n4)Reculer\n");
-            int action;
-            scanf(" %d", &action);
-            getchar();
+        printf("\n1) Deplacer son pion.\n2) Poser une barriere.\n3) Quitter.\n");
+        int action;
+        scanf("%d", &action);
 
-            if (action == 1) {if(x2>0){plateau[x2][y2]=' ';x2--;plateau[x2][y2]=jetonDeux;}}
-            else if (action == 2) {if(y2>0){plateau[x2][y2]=' ';y2--;plateau[x2][y2]=jetonDeux;}}
-            else if (action == 3) {if(y2<8){plateau[x2][y2]=' ';y2++;plateau[x2][y2]=jetonDeux;}}
-            else if (action == 4) {if(x2<8){plateau[x2][y2]=' ';x2++;plateau[x2][y2]=jetonDeux;}}
-
-            afficherPlateau(plateau);
-
-            joueurUnFlag = true;
+        if (action == 3) { // Quitter
+            partieEnCours = false;
+            printf("\nFin de la partie.\n");
+            break;
         }
 
+        if (action == 1) { // Déplacement
+            printf("\n1) Avancer\n2) Aller à gauche\n3) Aller à droite\n4) Reculer\n");
+            int deplacement;
+            scanf("%d", &deplacement);
 
-        //printf(prenomUn, "tu commences ! n1) Avancer\n2) Reculer\n3) Aller a droite\n4) Aller a gauche\n");
+            if (joueurUnFlag) {
+                // Le jeton 1 (Joueur 1) doit descendre d'une case (se déplacer vers le bas)
+                if (deplacement == 1 && x1 < CASE - 1) { plateau[x1][y1] = ' '; x1++; plateau[x1][y1] = jetonUn; }  // Descente vers le bas (ligne)
+                else if (deplacement == 2 && y1 < CASE - 1) { plateau[x1][y1] = ' '; y1++; plateau[x1][y1] = jetonUn; }  // Descente vers la droite (colonne)
+                else if (deplacement == 3 && y1 > 0) { plateau[x1][y1] = ' '; y1--; plateau[x1][y1] = jetonUn; }  // Montée vers la gauche (colonne)
+                else if (deplacement == 4 && x1 > 0) { plateau[x1][y1] = ' '; x1--; plateau[x1][y1] = jetonUn; }  // Montée vers le haut (ligne)
+            } else {
+                // Le jeton 2 (Joueur 2) doit monter d'une case (se déplacer vers le haut)
+                if (deplacement == 1 && x2 > 0) { plateau[x2][y2] = ' '; x2--; plateau[x2][y2] = jetonDeux; }  // Montée vers le haut (ligne)
+                else if (deplacement == 2 && y2 > 0) { plateau[x2][y2] = ' '; y2--; plateau[x2][y2] = jetonDeux; }  // Montée vers la gauche (colonne)
+                else if (deplacement == 3 && y2 < CASE - 1) { plateau[x2][y2] = ' '; y2++; plateau[x2][y2] = jetonDeux; }  // Descente vers la droite (colonne)
+                else if (deplacement == 4 && x2 < CASE - 1) { plateau[x2][y2] = ' '; x2++; plateau[x2][y2] = jetonDeux; }  // Descente vers le bas (ligne)
+            }
+        } else if (action == 2) { // Pose de barrière
+            printf("\nEntrez la position de la barriere (ligne colonne) : ");
+            int ligne, colonne;
+            scanf("%d %d", &ligne, &colonne);
 
+            // Ajustement pour indices (base 1 vers base 0)
+            ligne--;
+            colonne--;
 
-        //partieEnCours = false;
+            if (ligne >= 0 && ligne < CASE && colonne >= 0 && colonne < CASE && plateau[ligne][colonne] == ' ') {
+                plateau[ligne][colonne] = '@';
+                if (joueurUnFlag) barriereUn--;
+                else barriereDeux--;
+            } else {
+                printf("\nPosition invalide !\n");
+            }
+        }
 
+        joueurUnFlag = !joueurUnFlag; // Changer de joueur
     }
 }

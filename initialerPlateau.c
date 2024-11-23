@@ -2,13 +2,9 @@
 #include "plateau.h"
 #define CASE 9
 void initialiserPlateau(char plateau[CASE][CASE]) {
-    int i=0;
-    while (i<=CASE){
-        int j=0;
-        while (j<=CASE) {
-            j++;
+    for (int i = 0; i < CASE; i++) {
+        for (int j = 0; j < CASE; j++) {
             plateau[i][j] = ' ';
         }
-        i++;
     }
 }
