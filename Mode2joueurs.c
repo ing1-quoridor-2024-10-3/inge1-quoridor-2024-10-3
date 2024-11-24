@@ -82,7 +82,7 @@ void Mode2joueurs() {
         int action;
         scanf("%d", &action);
 
-        if (action == 3) { // Quitter
+        if (action == 3) {
             partieEnCours = false;
             printf("\nFin de la partie.\n");
             break;

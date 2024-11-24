@@ -5,6 +5,7 @@
 #include "plateau.h"
 #include <windows.h>
 #include "Mode2joueurs.h"
+#include "scores.h"
 
 void clear() {
 #ifdef _WIN32
@@ -61,6 +62,5 @@ int main(void) {
         case 4:
             break;
     }
-
-    return 0;
 }
+

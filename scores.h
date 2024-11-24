@@ -26,7 +26,7 @@ void miseAJour_scores(info_joueurs tableau_scores[], int *nbJoueursTotal, const 
 void sauvegarderScores(info_joueurs tableau_scores[], int nbJoueursTotal);
 void sauvegarderPlateau(Plateau *plateau);
 void chargerPlateau(Plateau *plateau);
-void afficherPlateau(Plateau *plateau);
+void afficherplateausauv(Plateau *plateau);
 void calculScore(info_joueurs tableau_scores[], int *nbJoueursTotal, const char *gagnant, const char *perdant);
 
 

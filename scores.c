@@ -136,7 +136,7 @@ void chargerPlateau(Plateau *plateau) {
     fclose(file); // Fermer le fichier
     printf("Plateau charge depuis plateau.txt\n");
 }
-void afficherPlateau(Plateau *plateau) {
+void afficherplateausauv(Plateau *plateau) {
     printf("Plateau actuel :\n");
     for (int i = 0; i < TAILLE_PLATEAU; i++) {
         for (int j = 0; j < TAILLE_PLATEAU; j++) {

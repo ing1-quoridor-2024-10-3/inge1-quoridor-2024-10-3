@@ -1,6 +1,4 @@
-//
-// Created by znaor on 18/11/2024.
-//
+
 #define CONSOLE_WIDTH 120
 #include <stdio.h>
 #include <stdlib.h>

@@ -7,9 +7,10 @@ add_executable(inge1_quoridor_2024_10_3
     main.c
         menu.c
         plateau.c
-        affichageconsole.c
         Mode2joueurs.c
         initialerPlateau.c
-        affichagePlateau.c
         scores.h
-        scores.c)
+        scores.c
+        sauvegarde.c
+        sauvegarde.h
+        afficherplateau.c)
