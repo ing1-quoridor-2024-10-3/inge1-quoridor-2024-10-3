@@ -13,4 +13,8 @@ add_executable(inge1_quoridor_2024_10_3
         scores.c
         sauvegarde.c
         sauvegarde.h
-        afficherplateau.c)
+        afficherplateau.c
+        Mode4joueurs.h
+        Mode4joueur.c
+        barriere.h
+        barriere.c)
