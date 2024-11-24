@@ -127,3 +127,4 @@ void Mode2joueurs() {
         joueurUnFlag = !joueurUnFlag; // Changer de joueur
     }
 }
+
