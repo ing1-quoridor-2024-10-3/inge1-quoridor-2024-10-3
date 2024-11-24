@@ -6,7 +6,7 @@
 #include <windows.h>
 #include "Mode2joueurs.h"
 #include "scores.h"
-
+#include "sauvegarde.h"
 void clear() {
 #ifdef _WIN32
     system("cls");
@@ -55,7 +55,7 @@ int main(void) {
             Mode2joueurs(plateau);
         }
         break;
-        case 2:
+        case 2:sauvegarde();
             break;
         case 3:aide();
         break;

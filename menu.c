@@ -7,6 +7,7 @@ int NouvellePartie() {
 }
 int ReprendrePartieSauv() {
     system("cls");
+
 }
     void aide(){
         system("cls");
