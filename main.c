@@ -6,6 +6,7 @@
 #include <windows.h>
 #include "Mode2joueurs.h"
 #include "scores.h"
+#include "Mode4joueurs.h"
 #include "sauvegarde.h"
 void clear() {
 #ifdef _WIN32
@@ -53,6 +54,11 @@ int main(void) {
             clear();
             initialiserPlateau(plateau);
             Mode2joueurs(plateau);
+        }
+        if (nbrJoueurs==4) {
+            clear();
+            initialiserPlateau(plateau);
+            Mode4joueurs(plateau);
         }
         break;
         case 2:sauvegarde();
