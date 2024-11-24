@@ -65,7 +65,8 @@ int main(void) {
             break;
         case 3:aide();
         break;
-        case 4:
+        case 5:
+            return 0;
             break;
     }
 }
